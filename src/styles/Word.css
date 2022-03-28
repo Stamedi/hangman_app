@@ -1,0 +1,9 @@
+.character {
+  padding: 0 5px;
+  font-size: 30px;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+}

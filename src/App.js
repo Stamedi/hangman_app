@@ -1,58 +1,89 @@
-import React from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
+import React, { useEffect, useState } from 'react';
 import './App.css';
+import Figure from './components/Figure';
 
 function App() {
+  const randomWord = require('random-words');
+  const [word, setWord] = useState(randomWord());
+  const [correctChars, setCorrectChars] = useState([]);
+  const [incorrectChars, setIncorrectChars] = useState([]);
+  const [usedChars, setUsedChars] = useState([]);
+  const [attempts, setAttempts] = useState(6);
+  const [currentChar, setcurrentChar] = useState('');
+  const [message, setMessage] = useState(null);
+
+
+const finalWord = word.split('').map((char, index) =>
+(correctChars.includes(char) ? <p key={index}>{char}</p> : <p key={index}>{'_'}</p>))
+
+const ifGuessed = finalWord.map((char) => char.props.children).includes('_')
+    window.addEventListener('keydown', (e)  => {
+      if (attempts > 0 && ifGuessed) {
+        if (e.keyCode >= 65 && e.keyCode <= 90) {
+          if (usedChars.map((char) => char).includes(currentChar) === false) {
+            setcurrentChar(e.key.toLowerCase())
+          } 
+        } 
+      }
+    });
+
+
+
+  useEffect(() => {
+    if (usedChars.map((char) => char).includes(currentChar) === false) {
+      if (attempts > 0 && ifGuessed ) {
+        if (word.includes(currentChar)) {
+          setCorrectChars([...correctChars, currentChar]);
+          setUsedChars([...usedChars, currentChar])
+        } else if (!word.includes(currentChar)) {
+          setIncorrectChars([...incorrectChars, currentChar]);
+          setUsedChars([...usedChars, currentChar])
+          setAttempts(attempts - 1);
+        } 
+      } 
+
+    }
+
+  }, [currentChar])
+
+  useEffect(() => {
+    if (!attempts && ifGuessed) {
+      setMessage('Nice Try!')
+    } else if (attempts > 0 && !ifGuessed) {
+      setMessage('Success!')
+    }
+
+  }, [attempts, ifGuessed])
+
+const handleReset = () => {
+ window.location.reload()
+}
+
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Counter />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <span>
-          <span>Learn </span>
-          <a
-            className="App-link"
-            href="https://reactjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux-toolkit.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux Toolkit
-          </a>
-          ,<span> and </span>
-          <a
-            className="App-link"
-            href="https://react-redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React Redux
-          </a>
-        </span>
-      </header>
+    <div className="app">
+      <h1 className='title'>THE HANGMAN GAME</h1>
+      <div className="body-container">
+        <div className="attempts-container">
+          <h2 className='attempts'>{attempts}</h2>
+          <Figure  attempts={attempts} />
+        </div>
+        <div className="mid-container">
+          <h2 className="wrong-chars"> Wrong Letters: {incorrectChars.map((char) => `${char}, `)}
+          </h2>
+
+          <h2 className='message'>{message}</h2>
+          {!attempts ? <h2 className='word-answer'>The word was "{word}".</h2> : 
+          <h2 className="word">{finalWord}</h2>}
+
+          {(!attempts || !ifGuessed) && 
+          <button onClick={handleReset} className="restart-btn">Try Again!</button> }
+        </div>
+      </div>
     </div>
   );
 }
 
 export default App;
+

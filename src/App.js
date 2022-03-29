@@ -10,9 +10,17 @@ function App() {
   const [usedChars, setUsedChars] = useState([]);
   const [attempts, setAttempts] = useState(6);
   const [currentChar, setcurrentChar] = useState('');
-  const [message, setMessage] = useState(null);
+  const [message, setMessage] = useState('');
 
-
+  const handleReset = () => {
+    setWord(randomWord());
+    setCorrectChars([]);
+    setIncorrectChars([]);
+    setUsedChars([]);
+    setAttempts(6);
+    setcurrentChar('');
+    setMessage('');
+   }
 const finalWord = word.split('').map((char, index) =>
 (correctChars.includes(char) ? <p key={index}>{char}</p> : <p key={index}>{'_'}</p>))
 
@@ -54,11 +62,6 @@ const ifGuessed = finalWord.map((char) => char.props.children).includes('_')
     }
 
   }, [attempts, ifGuessed])
-
-const handleReset = () => {
- window.location.reload()
-}
-
 
 
   return (

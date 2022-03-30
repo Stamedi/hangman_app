@@ -12,32 +12,22 @@ function App() {
   const [currentChar, setcurrentChar] = useState('');
   const [message, setMessage] = useState('');
 
-  const handleReset = () => {
-    setWord(randomWord());
-    setCorrectChars([]);
-    setIncorrectChars([]);
-    setUsedChars([]);
-    setAttempts(6);
-    setcurrentChar('');
-    setMessage('');
-   }
 
   const finalWord = word.split('').map((char, index) =>
-  (correctChars.includes(char) ? <p key={index}>{char}</p> : <p key={index}>{'_'}</p>))
+    (correctChars.includes(char) ? <p key={index}>{char}</p> : <p key={index}>{'_'}</p>))
 
   const ifGuessed = finalWord.map((char) => char.props.children).includes('_')
-      window.addEventListener('keydown', (e)  => {
-        if (attempts > 0 && ifGuessed) {
-          if (e.keyCode >= 65 && e.keyCode <= 90) {
-            if (usedChars.map((char) => char).includes(currentChar) === false) {
-              setcurrentChar(e.key.toLowerCase())
-            } 
-          } 
-        }
-      });
-
-
-
+  
+  window.addEventListener('keydown', (e)  => {
+    if (attempts > 0 && ifGuessed) {
+      if (e.keyCode >= 65 && e.keyCode <= 90) {
+        if (usedChars.map((char) => char).includes(currentChar) === false) {
+          setcurrentChar(e.key.toLowerCase())
+        } 
+      } 
+    }
+  });
+  
   useEffect(() => {
     if (usedChars.map((char) => char).includes(currentChar) === false) {
       if (attempts > 0 && ifGuessed ) {
@@ -64,6 +54,16 @@ function App() {
 
   }, [attempts, ifGuessed])
 
+  const handleReset = () => {
+    setWord(randomWord());
+    setCorrectChars([]);
+    setIncorrectChars([]);
+    setUsedChars([]);
+    setAttempts(6);
+    setcurrentChar('');
+    setMessage('');
+  }
+ 
 
   return (
     <div className="app">

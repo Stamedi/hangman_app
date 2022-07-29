@@ -18,17 +18,7 @@ function App() {
 
   const ifGuessed = finalWord.map((char) => char.props.children).includes('_')
   
-  window.addEventListener('keydown', (e)  => {
-    if (attempts > 0 && ifGuessed) {
-      if (e.keyCode >= 65 && e.keyCode <= 90) {
-        if (usedChars.map((char) => char).includes(currentChar) === false) {
-          setcurrentChar(e.key.toLowerCase())
-        } 
-      } 
-    }
-  });
-  
-  useEffect(() => {
+  const changeAttempts = () => {
     if (usedChars.map((char) => char).includes(currentChar) === false) {
       if (attempts > 0 && ifGuessed ) {
         if (word.includes(currentChar)) {
@@ -40,9 +30,24 @@ function App() {
           setAttempts(attempts - 1);
         } 
       } 
-
+    
     }
+    
+  }
 
+  window.addEventListener('keydown', (e)  => {
+    if (attempts > 0 && ifGuessed) {
+      if (e.keyCode >= 65 && e.keyCode <= 90) {
+        if (usedChars.map((char) => char).includes(currentChar) === false) {
+          setcurrentChar(e.key.toLowerCase())
+        } 
+      } 
+    }
+  });
+  
+  useEffect(() => {
+    changeAttempts()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentChar])
 
   useEffect(() => {

@@ -142,7 +142,7 @@ body {
 
 @media (max-width: 800px) {
   .title {
-    font-size: 35px;
+    font-size: 30px;
   }
 
   .figure-container{
@@ -165,11 +165,11 @@ body {
   }
 
   .attempts {
-    font-size: 40px;
+    font-size: 35px;
   }
 
   .attempts-container {
-    margin-left: 50px;
+    margin-left: 0px;
   }
 
   .body-container {
@@ -179,7 +179,7 @@ body {
 
   .mid-container {
     padding-left: 0px;
-    padding-top: 40px;
+    padding-top: 30px;
     width: auto;
   }
 

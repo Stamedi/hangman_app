@@ -33,12 +33,12 @@ function Figure({attempts}) {
         <line x1="200" y1="190" x2="160" y2="240" />
       }
     </svg>
-    <svg height="200" width="170" className="mob-fig-container">
+    <svg height="175" width="170" className="mob-fig-container">
       {/* <!-- Rod --> */}
       <line x1="60" y1="20" x2="130" y2="20" />
       <line x1="130" y1="20" x2="130" y2="50" />
-      <line x1="60" y1="20" x2="60" y2="200" />
-      <line x1="40" y1="200" x2="80" y2="200" />
+      <line x1="60" y1="20" x2="60" y2="170" />
+      <line x1="40" y1="170" x2="80" y2="170" />
 
       {/* <!-- Head --> */}
       {attempts < 6 &&

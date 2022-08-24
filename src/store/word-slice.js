@@ -1,5 +1,4 @@
 const { createSlice } = require('@reduxjs/toolkit');
-
 const randomWord = require('random-words');
 const wordSlice = createSlice({
   name: 'word',

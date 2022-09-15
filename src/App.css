@@ -46,18 +46,19 @@ body {
   border: none;
   border-radius: 3px;
   font-size: 30px;
-
   background-color: lightgrey;
   color: black;
   padding: 10px;
   cursor: pointer;
   box-shadow: rgba(224, 224, 224, 0.25) 0px 6px 12px -2px, rgba(224, 224, 224, 0.3) 0px 3px 7px -3px;
+  transition: 0.5s ease-out;
 }
 
 
 .restart-btn:hover {
   background-color: whitesmoke;
   box-shadow: rgba(224, 224, 224, 0.25) 0px 14px 28px, rgba(224, 224, 224, 0.22) 0px 10px 10px;
+  color: rgb(98, 98, 98);
 }
 
 .restart-btn:active {
@@ -82,6 +83,27 @@ body {
   stroke: whitesmoke;
   stroke-width: 4px;
   stroke-linecap: round;
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  animation: dash 5s linear forwards;
+}
+
+.line1,
+.head,
+.body,
+.arm1,
+.arm2,
+.leg1,
+.leg2 {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  animation: dash 5s linear forwards;
+}
+
+@keyframes dash {
+  to {
+    stroke-dashoffset: 0;
+  }
 }
 
 .mob-fig-container {
@@ -97,10 +119,9 @@ body {
   align-items: center;
 }
 
-.line1 {
-  height: 200px;
-  width: 200px;
-}
+/* .line1 {
+  stroke-dasharray: 20;
+} */
 
 
 @media (max-width: 1024px) {
